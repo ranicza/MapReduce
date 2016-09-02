@@ -2,6 +2,6 @@
 
 ##Getting started
 ###Build
-'''
+```
 mvn clean install
-'''
+```
