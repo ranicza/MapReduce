@@ -19,11 +19,11 @@ public class TagCountTest {
 	ReduceDriver<Text, IntWritable, Text, IntWritable> reduceDriver;
 	MapReduceDriver<Object, Text, Text, IntWritable, Text, IntWritable> mapReduceDriver;	
 	
-	private final String input = "282163091263	automobile,cleaning,gun,gun,oil,oil,oil 45t	ON	CPC	BROAD	http://www.miniinthebox.com/oil-pollution-cleaning-automobile-engine-pipe-with-reinigungspistole-spray-gun-tool_p4815979.html";
-	private final String str1 = "AUTOMOBILE";
-	private final String str2 = "CLEANING";
-	private final String str3 = "GUN";
-	private final String str4 = "OIL";
+	private String input = "282163091263	automobile,cleaning,gun,gun,oil,oil,oil 45t	ON	CPC	BROAD	http://www.miniinthebox.com/oil-pollution-cleaning-automobile-engine-pipe-with-reinigungspistole-spray-gun-tool_p4815979.html";
+	private String str1 = "AUTOMOBILE";
+	private String str2 = "CLEANING";
+	private String str3 = "GUN";
+	private String str4 = "OIL";
 	
 	@Before
 	  public void setUp() {
