@@ -26,12 +26,15 @@ public class CountOfVisits {
 	public static final String JOB_NAME = "Visits Spends count";  
 	public static final String BROWSER_COUNTER = "Browsers Counter:";
 	
-	 public static class VisitsSpendsMapper extends Mapper<Object, Text, Text, VisitSpend> {
+	private static final String patternIp = "\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}\\.(\\d{1,3}|\\*)";
+	private static final String patternUA = "[a-zA-Z0-9]+\\s[0-9]+\\s[a-zA-Z0-9]+\\s(.*)";
+	 
+	public static class Map extends Mapper<Object, Text, Text, VisitSpend> {
 
 	        private Text contentIp = new Text();
 	        private VisitSpend visitSpend = new VisitSpend();
-	        Pattern ipPattern = Pattern.compile("\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}\\.(\\d{1,3}|\\*)");
-	        Pattern userAgentPattern = Pattern.compile("[a-zA-Z0-9]+\\s[0-9]+\\s[a-zA-Z0-9]+\\s(.*)");
+	        Pattern ipPattern = Pattern.compile(patternIp);
+	        Pattern userAgentPattern = Pattern.compile(patternUA);
 
 	        public void map(Object key, Text value, Context context) throws IOException, InterruptedException {
 
@@ -47,9 +50,10 @@ public class CountOfVisits {
 	                visitSpend.setVisitsCount(1);
 	                context.write(contentIp, visitSpend);
 
-	                String firstParams = line.split(ip)[0].trim();
+	                //Get first part of line (before ip)
+	                String firstPart = line.split(ip)[0].trim();
 
-	                Matcher m2 = userAgentPattern.matcher(firstParams);
+	                Matcher m2 = userAgentPattern.matcher(firstPart);
 	                if (m2.find()) {
 	                    String userAgent = m2.group(1);
 	                    UserAgent ua = new UserAgent(userAgent);
@@ -61,7 +65,7 @@ public class CountOfVisits {
 
 	    }
 
-	    public static class VisitsSpendsReducer extends Reducer<Text, VisitSpend, Text, VisitSpend> {
+	    public static class Reduce extends Reducer<Text, VisitSpend, Text, VisitSpend> {
 	        private VisitSpend result = new VisitSpend();
 
 	        public void reduce(Text key, Iterable<VisitSpend> values, Context context)  {
@@ -93,9 +97,9 @@ public class CountOfVisits {
 	        }
 	        Job job = new Job(conf, JOB_NAME);
 	        job.setJarByClass(CountOfVisits.class);
-	        job.setMapperClass(VisitsSpendsMapper.class);
-	        job.setCombinerClass(VisitsSpendsReducer.class);
-	        job.setReducerClass(VisitsSpendsReducer.class);
+	        job.setMapperClass(Map.class);
+	        job.setCombinerClass(Reduce.class);
+	        job.setReducerClass(Reduce.class);
 	        job.setOutputKeyClass(Text.class);
 	        job.setOutputValueClass(VisitSpend.class);
 
