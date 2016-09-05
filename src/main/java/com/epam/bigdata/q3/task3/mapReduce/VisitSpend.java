@@ -19,9 +19,9 @@ public class VisitSpend implements WritableComparable<VisitSpend> {
 	public VisitSpend() {
 	}
 
-	public VisitSpend(int visitsCount, int spendsCount) {
-		this.amountVisits = visitsCount;
-		this.amountSpends = spendsCount;
+	public VisitSpend(int visits, int spends) {
+		this.amountVisits = visits;
+		this.amountSpends = spends;
 	}
 
 	public void write(DataOutput out) throws IOException {
@@ -34,28 +34,28 @@ public class VisitSpend implements WritableComparable<VisitSpend> {
 		amountSpends = in.readInt();
 	}
 
-	public int compareTo(VisitSpend w) {
-		if (Integer.compare(amountVisits, w.getVisitsCount()) == 0) {
-			return Integer.compare(amountSpends, w.getSpendsCount());
+	public int compareTo(VisitSpend vs) {
+		if (Integer.compare(amountVisits, vs.getAmountVisits()) == 0) {
+			return Integer.compare(amountSpends, vs.getAmountSpends());
 		} else {
-			return Integer.compare(amountVisits, w.getVisitsCount());
+			return Integer.compare(amountVisits, vs.getAmountVisits());
 		}
 	}
 
-	public int getVisitsCount() {
+	public int getAmountVisits() {
 		return amountVisits;
 	}
 
-	public void setVisitsCount(int visitsCount) {
-		this.amountVisits = visitsCount;
+	public void setAmountVisits(int amountVisits) {
+		this.amountVisits = amountVisits;
 	}
 
-	public int getSpendsCount() {
+	public int getAmountSpends() {
 		return amountSpends;
 	}
 
-	public void setSpendsCount(int spendsCount) {
-		this.amountSpends = spendsCount;
+	public void setAmountSpends(int amountSpends) {
+		this.amountSpends = amountSpends;
 	}
 
 	@Override
@@ -87,5 +87,4 @@ public class VisitSpend implements WritableComparable<VisitSpend> {
 	public String toString() {
 		return " Visits: " + amountVisits + "; Bidding price: " + amountSpends;
 	}
-
 }

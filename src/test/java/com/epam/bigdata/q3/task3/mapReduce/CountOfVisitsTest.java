@@ -26,8 +26,8 @@ public class CountOfVisitsTest {
 	
 	@Before
     public void setUp() {
-		CountOfVisits.Map mapper = new CountOfVisits.Map();
-		CountOfVisits.Reduce reducer = new CountOfVisits.Reduce();
+		VSCount.Map mapper = new VSCount.Map();
+		VSCount.Reduce reducer = new VSCount.Reduce();
         mapDriver = MapDriver.newMapDriver(mapper);
         reduceDriver = ReduceDriver.newReduceDriver(reducer);
         mapReduceDriver = MapReduceDriver.newMapReduceDriver(mapper, reducer);

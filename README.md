@@ -6,7 +6,7 @@
 - MRUnit tests.
 
 ####subtask 2:
-- MapReduce jobs to count amountof visits (count(*)) by IP and spends (sum(Binding price)) by IP (combiner & custom writable data type);
+- MapReduce jobs to count amount of visits (count(*)) by IP and spends (sum(Binding price)) by IP (combiner & custom writable data type);
 - Output is saved as Sequence file compressed with Snappy (key is IP, and value is custom object for visits and spends);
 - Counters for getting how many records of browsers were detected is used;
 - for parsing User Agent is used [this library](https://github.com/HaraldWalker/user-agent-utils)
