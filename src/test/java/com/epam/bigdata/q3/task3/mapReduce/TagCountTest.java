@@ -15,9 +15,9 @@ import org.junit.Test;
 
 public class TagCountTest {
 	
-	MapDriver<Object, Text, Text, IntWritable> mapDriver;
+	MapDriver<LongWritable, Text, Text, IntWritable> mapDriver;
 	ReduceDriver<Text, IntWritable, Text, IntWritable> reduceDriver;
-	MapReduceDriver<Object, Text, Text, IntWritable, Text, IntWritable> mapReduceDriver;	
+	MapReduceDriver<LongWritable, Text, Text, IntWritable, Text, IntWritable> mapReduceDriver;	
 	
 	private String input = "282163091263	automobile,cleaning,gun,gun,oil,oil,oil 45t	ON	CPC	BROAD	http://www.miniinthebox.com/oil-pollution-cleaning-automobile-engine-pipe-with-reinigungspistole-spray-gun-tool_p4815979.html";
 	private String str1 = "AUTOMOBILE";

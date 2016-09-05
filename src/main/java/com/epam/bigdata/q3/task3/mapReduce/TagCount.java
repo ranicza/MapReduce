@@ -8,6 +8,7 @@ import java.util.Set;
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.Path;
 import org.apache.hadoop.io.IntWritable;
+import org.apache.hadoop.io.LongWritable;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Job;
 import org.apache.hadoop.mapreduce.Mapper;
@@ -30,7 +31,7 @@ public class TagCount {
 	public static final String TAGCOUNT_ERROR = "Usage: Tag count <in> [<in>...] <out>";
 	public static final String JOB_NAME = "Tag count";
 
-	public static class TokenizerMapper extends Mapper<Object, Text, Text, IntWritable> {
+	public static class TokenizerMapper extends Mapper<LongWritable, Text, Text, IntWritable> {
 
 		private static final IntWritable one = new IntWritable(1);
 
@@ -66,7 +67,7 @@ public class TagCount {
 			}
 		}
 
-		public void map(Object key, Text value, Context context) throws IOException, InterruptedException {
+		public void map(LongWritable key, Text value, Context context) throws IOException, InterruptedException {
 			String input = value.toString();
 
 			// Get tags from text

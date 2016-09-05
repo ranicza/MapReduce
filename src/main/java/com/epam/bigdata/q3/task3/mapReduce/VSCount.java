@@ -6,6 +6,7 @@ import java.util.regex.Pattern;
 
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.Path;
+import org.apache.hadoop.io.LongWritable;
 import org.apache.hadoop.io.SequenceFile;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.io.compress.SnappyCodec;
@@ -37,7 +38,7 @@ public class VSCount {
 	private static final String regIp = "\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}\\.(\\d{1,3}|\\*)";
 	private static final String regUA = "[a-zA-Z0-9]+\\s[0-9]+\\s[a-zA-Z0-9]+\\s(.*)";
 
-	public static class Map extends Mapper<Object, Text, Text, VisitSpend> {
+	public static class Map extends Mapper<LongWritable, Text, Text, VisitSpend> {
 
 		private Text contentIp = new Text();
 		private VisitSpend vs = new VisitSpend();
@@ -45,7 +46,7 @@ public class VSCount {
 		Pattern patIP = Pattern.compile(regIp);
 		Pattern patUA = Pattern.compile(regUA);
 
-		public void map(Object key, Text value, Context context) throws IOException, InterruptedException {
+		public void map(LongWritable key, Text value, Context context) throws IOException, InterruptedException {
 			String line = value.toString();
 
 			String[] tokens = line.split("\\s+");
@@ -131,7 +132,7 @@ public class VSCount {
 		SequenceFileOutputFormat.setOutputCompressionType(job, SequenceFile.CompressionType.BLOCK);
 
 		for (Counter counter : job.getCounters().getGroup(Browser.class.getCanonicalName())) {
-			System.out.println(counter.getDisplayName() + "- " + counter.getValue());
+			System.out.println(counter.getDisplayName() + ": " + counter.getValue());
 		}
 
 		System.exit(job.waitForCompletion(true) ? 0 : 1);

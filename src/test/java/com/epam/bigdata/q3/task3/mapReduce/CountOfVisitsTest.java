@@ -13,9 +13,9 @@ import org.junit.Before;
 import org.junit.Test;
 
 public class CountOfVisitsTest {
-	MapDriver<Object, Text, Text, VisitSpend> mapDriver;
+	MapDriver<LongWritable, Text, Text, VisitSpend> mapDriver;
 	ReduceDriver<Text, VisitSpend, Text, VisitSpend> reduceDriver;
-	MapReduceDriver<Object, Text, Text, VisitSpend, Text, VisitSpend> mapReduceDriver;	
+	MapReduceDriver<LongWritable, Text, Text, VisitSpend, Text, VisitSpend> mapReduceDriver;	
 
 	private String input1 = "2d34c0a50472ba3a4e3c83903437eae0	20130606222224950	Vh16L7SiOo1hJCC	Mozilla/5.0 (Windows NT 5.1) AppleWebKit/537.1 (KHTML, like Gecko) Chrome/21.0.1180.89 Safari/537.1	116.1.44.*	238	241	3	tMxYQ19aM98	202f6e8052731b38647f987dbc4a5db	null	LV_1001_LDVi_LD_ADX_1	300	250	0	0	100	00fccc64a1ee2809348509b7ac2a97a5	241	3427	282825712767	0";
 	private String input2 = "70937d8c62d86921c54cc21255e885c1	20130606222224950	Vh16L7SiOo1hJCC	Mozilla/5.0 (Windows NT 5.1) AppleWebKit/537.1 (KHTML, like Gecko) Chrome/21.0.1180.89 Safari/537.1	116.1.44.*	238	241	3	tMxYQ19aM98	202f6e8052731b38647f987dbc4a5db	null	LV_1001_LDVi_LD_ADX_2	300	250	0	0	100	00fccc64a1ee2809348509b7ac2a97a5	241	3427	282825712806	0";
