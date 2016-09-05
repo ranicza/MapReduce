@@ -12,7 +12,7 @@ import org.apache.hadoop.mrunit.mapreduce.ReduceDriver;
 import org.junit.Before;
 import org.junit.Test;
 
-public class CountOfVisitsTest {
+public class VSCountTest {
 	MapDriver<LongWritable, Text, Text, VisitSpend> mapDriver;
 	ReduceDriver<Text, VisitSpend, Text, VisitSpend> reduceDriver;
 	MapReduceDriver<LongWritable, Text, Text, VisitSpend, Text, VisitSpend> mapReduceDriver;	

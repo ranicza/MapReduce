@@ -110,10 +110,11 @@ public class VSCount {
 			System.exit(2);
 		}
 
-		// Create a new Job
+		// Create a new job
 		Job job = new Job(conf, JOB_NAME);
 		job.setJarByClass(VSCount.class);
-
+		
+		//Sets mapper & reduce
 		job.setMapperClass(Map.class);
 		job.setCombinerClass(Reduce.class);
 		job.setReducerClass(Reduce.class);
@@ -121,20 +122,20 @@ public class VSCount {
 		job.setOutputKeyClass(Text.class);
 		job.setOutputValueClass(VisitSpend.class);
 
-		FileInputFormat.addInputPath(job, new Path(otherArgs[0]));
-
-		// Output as Sequence file compressed with Snappy.
 		FileOutputFormat.setCompressOutput(job, true);
 		FileOutputFormat.setOutputCompressorClass(job, SnappyCodec.class);
 		job.setOutputFormatClass(SequenceFileOutputFormat.class);
 
+		FileInputFormat.addInputPath(job, new Path(otherArgs[0]));
 		SequenceFileOutputFormat.setOutputPath(job, new Path(otherArgs[1]));
 		SequenceFileOutputFormat.setOutputCompressionType(job, SequenceFile.CompressionType.BLOCK);
 
+		boolean result = job.waitForCompletion(true);
+
 		for (Counter counter : job.getCounters().getGroup(Browser.class.getCanonicalName())) {
-			System.out.println(counter.getDisplayName() + ": " + counter.getValue());
+			System.out.println(counter.getDisplayName() + "- " + counter.getValue());
 		}
 
-		System.exit(job.waitForCompletion(true) ? 0 : 1);
+		System.exit(result ? 0 : 1);
 	}
 }
