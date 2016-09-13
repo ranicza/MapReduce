@@ -57,31 +57,24 @@ public class VisitSpend implements WritableComparable<VisitSpend> {
 	public void setAmountSpends(int amountSpends) {
 		this.amountSpends = amountSpends;
 	}
+	
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
 
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		VisitSpend other = (VisitSpend) obj;
-		if (amountSpends != other.amountSpends)
-			return false;
-		if (amountVisits != other.amountVisits)
-			return false;
-		return true;
-	}
+        VisitSpend that = (VisitSpend) o;
 
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + amountSpends;
-		result = prime * result + amountVisits;
-		return result;
-	}
+        return amountVisits == that.amountVisits && amountSpends == that.amountSpends;
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = amountVisits;
+        result = 31 * result + amountSpends;
+        return result;
+    }
 
 	@Override
 	public String toString() {

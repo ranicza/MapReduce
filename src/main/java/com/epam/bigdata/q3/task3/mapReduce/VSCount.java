@@ -37,7 +37,7 @@ public class VSCount {
 
 	private static final String regIp = "\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}\\.(\\d{1,3}|\\*)";
 	private static final String regUA = "[a-zA-Z0-9]+\\s[0-9]+\\s[a-zA-Z0-9]+\\s(.*)";
-
+	private static final String SPACE = "\\s+";
 	public static class Map extends Mapper<LongWritable, Text, Text, VisitSpend> {
 
 		private Text contentIp = new Text();
@@ -49,7 +49,7 @@ public class VSCount {
 		public void map(LongWritable key, Text value, Context context) throws IOException, InterruptedException {
 			String line = value.toString();
 
-			String[] tokens = line.split("\\s+");
+			String[] tokens = line.split(SPACE);
 			Matcher m = patIP.matcher(line);
 
 			if (m.find()) {

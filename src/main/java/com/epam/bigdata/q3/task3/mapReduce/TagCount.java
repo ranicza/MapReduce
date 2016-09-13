@@ -30,6 +30,9 @@ public class TagCount {
 	public static final String READ_FILE_ERROR = "Exception while reading file with tags for excluding: ";
 	public static final String TAGCOUNT_ERROR = "Usage: Tag count <in> [<in>...] <out>";
 	public static final String JOB_NAME = "Tag count";
+	public static final String SPACE = "\\s+";
+	public static final String COMMA = ",";
+	public static final String REGEXP =  "\\D+";
 
 	public static class TokenizerMapper extends Mapper<LongWritable, Text, Text, IntWritable> {
 
@@ -71,10 +74,10 @@ public class TagCount {
 			String input = value.toString();
 
 			// Get tags from text
-			String[] tokens = input.split("\\s+");
-			String[] tags = tokens[1].toUpperCase().split(",");
+			String[] tokens = input.split(SPACE);
+			String[] tags = tokens[1].toUpperCase().split(COMMA);
 			for (String t : tags) {
-				if (t.matches("\\D+") && !excludeTags.contains(t)) {
+				if (t.matches(REGEXP) && !excludeTags.contains(t)) {
 					tag.set(t);
 					context.write(tag, one);
 				}
